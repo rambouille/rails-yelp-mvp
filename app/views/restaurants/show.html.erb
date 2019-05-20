@@ -1,0 +1,38 @@
+<div class="container mt-5">
+    <h1><%= @restaurant.name %></h1>
+  <div class="restaurant-container d-flex justify-content-between mt-5">
+    <div class="restaurant-infos ">
+      <h2>Informations</h2>
+      <p><%= @restaurant.category %></p>
+      <p><%= @restaurant.address %></p>
+      <p><%= @restaurant.phone_number %></p>
+    </div>
+    <div class="buttons">
+      <%= link_to "edit", edit_restaurant_path(@restaurant), class: 'btn btn-primary'  %>
+      <br>
+      <%= link_to "delete", @restaurant, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-secondary mt-2'  %>
+    </div>
+  </div>
+  <div class="restaurant-reviews mt-4">
+    <h2>Reviews</h2>
+    <div id="reviews-ever-done">
+      <% @reviews.each do |review| %>
+        <span>Written on the <%= review.created_at %></span>
+        <span>  -  <%= review.rating %> ratings</span>
+        <p><%= review.content %></p>
+      <% end %>
+    </div>
+    <div class="review-form mt-5">
+      <h5>Leave a review...</h5>
+      <%= simple_form_for [@restaurant, @new_review] do |f| %>
+        <%= f.input :content, placeholder: 'Your text here', label: false %>
+        <%= f.input :rating, placeholder: 'Rating (Enter a number between 0 and 5)', label: false %>
+        <%= f.button :submit, class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  </div>
+  <hr>
+
+  <%= link_to "back to the list", restaurants_path  %>
+
+</div>
